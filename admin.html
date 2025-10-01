@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="windows">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin — JSON Editor</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="page">
+<header class="pagebar">
+<h1>Admin — JSON Editor</h1>
+<nav>
+<a class="ghost" href="index.html">⬅ Back</a>
+</nav>
+</header>
+<main class="page-content">
+<section class="card">
+<h2>Open File</h2>
+<div class="row gap">
+<button data-open="apps.json">Open apps.json</button>
+<button data-open="templates.json">Open templates.json</button>
+<button data-open="users.json">Open users.json</button>
+</div>
+</section>
+
+
+<section class="card">
+<h2>Editor</h2>
+<textarea id="editor" class="editor" spellcheck="false" placeholder="JSON will appear here…"></textarea>
+<div class="row gap">
+<button id="validateBtn">Validate</button>
+<button id="downloadBtn">Download .json</button>
+</div>
+</section>
+
+
+<section class="card">
+<h2>Users helper</h2>
+<label>
+<span>Username</span>
+<input id="uName" />
+</label>
+<label>
+<span>Password</span>
+<input id="uPass" type="password" />
+</label>
+<label>
+<span>Role</span>
+<select id="uRole"><option>admin</option><option>user</option></select>
+</label>
+<div class="row gap">
+<button id="genUser">Generate JSON item</button>
+<button id="appendUser">Append to opened users.json</button>
+</div>
+<pre id="userOut" class="mono"></pre>
+</section>
+
+
+<section class="card">
+<h2>Docs</h2>
+<ul>
+<li>This editor is **client-side only**. After editing, click Download and upload the file to your server.</li>
+<li>Embedding external sites may fail if they set X-Frame-Options or frame-ancestors CSP.</li>
+</ul>
+</section>
+</main>
+
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

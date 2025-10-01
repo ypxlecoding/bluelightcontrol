@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="windows">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Settings</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="page">
+<header class="pagebar">
+<h1>Settings</h1>
+<nav>
+<a class="ghost" href="index.html">⬅ Back</a>
+</nav>
+</header>
+<main class="page-content">
+<section class="card">
+<h2>Appearance</h2>
+<label>
+<span>Theme</span>
+<select id="themeSel">
+<option value="windows">Windows</option>
+<option value="mac">Mac</option>
+</select>
+</label>
+<label>
+<span>Template</span>
+<select id="tplSel"></select>
+</label>
+<label>
+<span>Wallpaper</span>
+<select id="wpSel"></select>
+</label>
+<div>
+<button id="applyBtn">Apply</button>
+</div>
+</section>
+<section class="card">
+<h2>Maintenance</h2>
+<button id="resetDesktop">Reset desktop layout</button>
+<button id="clearAll">Clear all local settings</button>
+</section>
+</main>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/settings.js"></script>
+</body>
+</html>

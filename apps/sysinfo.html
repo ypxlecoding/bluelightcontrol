@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>System Info</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body class="app">
+<main class="page-content">
+<section class="card">
+<h2>Runtime</h2>
+<div id="info" style="line-height:1.6"></div>
+</section>
+</main>
+<script>
+const el = document.getElementById('info');
+function render(){
+el.innerHTML = `
+<div><strong>User Agent:</strong> ${navigator.userAgent}</div>
+<div><strong>Platform:</strong> ${navigator.platform}</div>
+<div><strong>Language:</strong> ${navigator.language}</div>
+<div><strong>Viewport:</strong> ${window.innerWidth}×${window.innerHeight}</div>
+`;
+}
+render();
+window.addEventListener('resize', render);
+</script>
+</body>
+</html>

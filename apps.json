@@ -1,5 +1,5 @@
 [
-  { "id": "lad",       "name": "LAD",       "icon": "📘", "url": "http://lad.bluelightcontrol.de" },
-  { "id": "blc",       "name": "BLC",       "icon": "🚓", "url": "http://play.bluelightcontrol.de" },
+  { "id": "lad", "name": "LAD", "icon": "📘", "url": "http://lad.bluelightcontrol.de" },
+  { "id": "blc", "name": "BLC", "icon": "🚓", "url": "http://play.bluelightcontrol.de" },
   { "id": "planspiel", "name": "Planspiel", "icon": "📈", "url": "http://planspiel.bluelightcontrol.de" }
-]
+  ]
