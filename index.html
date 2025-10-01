@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+<html lang="en" data-theme="windows">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Desktop – LAD / BLC / Planspiel</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="loginScreen" class="screen">
+    <div class="login-card">
+      <div class="login-avatar">👤</div>
+      <h1>Welcome</h1>
+      <form id="loginForm" autocomplete="off">
+        <label>
+          <span>Username</span>
+          <input id="loginUser" name="user" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="loginPass" name="pass" type="password" required />
+        </label>
+        <button type="submit">Sign in</button>
+        <p id="loginErr" class="error" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div id="desktop" class="screen hidden">
+    <!-- Top bar (mac) -->
+    <header id="topbar" class="bar top">
+      <div class="left">
+        <button id="appleMenu" class="ghost mac-only"></button>
+        <strong id="menuTitle" class="mac-only">Finder</strong>
+        <div id="menuActions" class="mac-only">
+          <button class="ghost" data-action="about">About</button>
+          <button class="ghost" data-action="settings">Settings</button>
+        </div>
+      </div>
+      <div class="right">
+        <span id="clock"></span>
+        <button id="logoutBtn" class="ghost">Logout</button>
+      </div>
+    </header>
+
+    <!-- App grid (desktop icons) -->
+    <main id="desktopArea" class="desktop-grid" role="grid" aria-label="Desktop icons">
+      <!-- Populated from apps.json -->
+    </main>
+
+    <!-- Dock / Taskbar -->
+    <nav id="dock" class="bar bottom">
+      <div class="dock-inner">
+        <button id="startBtn" class="win-only">⊞</button>
+        <div id="taskStrip" class="tasks"></div>
+        <button id="settingsBtn" title="Settings">⚙️</button>
+      </div>
+    </nav>
+
+    <!-- Windows (runtime container) -->
+    <div id="windowLayer" aria-live="polite"></div>
+  </div>
+
+  <!-- Templates & Apps modals are created by JS -->
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
