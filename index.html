@@ -4,7 +4,88 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Desktop – LAD / BLC / Planspiel</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/styl<!DOCTYPE html>
+  <html lang="en" data-theme="windows">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Desktop — LAD / BLC / Planspiel</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+      <div class="login-card">
+        <div class="login-avatar">👤</div>
+        <h1>Welcome</h1>
+        <form id="loginForm" autocomplete="off">
+          <label>
+            <span>Username</span>
+            <input id="loginUser" name="user" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input id="loginPass" name="pass" type="password" required />
+          </label>
+          <button id="loginBtn" type="submit">Sign in</button>
+          <p id="loginErr" class="error" aria-live="polite"></p>
+          <details class="hint">
+            <summary>Trouble signing in?</summary>
+            <p>Make sure you serve this folder over HTTP/HTTPS (not <code>file://</code>). Example: <code>python3 -m http.server</code></p>
+          </details>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Desktop -->
+    <div id="desktop" class="screen hidden" aria-label="Desktop" tabindex="-1">
+      <!-- Top bar -->
+      <header id="topbar" class="bar top" role="menubar">
+        <div class="left">
+          <button id="appleMenu" class="ghost mac-only" aria-haspopup="true"></button>
+          <strong id="menuTitle" class="mac-only">Finder</strong>
+          <div id="menuActions" class="mac-only">
+            <button class="ghost" data-action="about">About</button>
+            <button class="ghost" data-action="settings">Settings</button>
+          </div>
+        </div>
+        <div class="right">
+          <span id="clock" aria-live="polite"></span>
+          <button id="logoutBtn" class="ghost">Logout</button>
+        </div>
+      </header>
+  
+      <!-- App grid -->
+      <main id="desktopArea" class="desktop-grid" role="grid" aria-label="Desktop icons">
+        <!-- tiles injected -->
+      </main>
+  
+      <!-- Taskbar / Dock -->
+      <nav id="dock" class="bar bottom" role="navigation" aria-label="Taskbar">
+        <div class="dock-inner">
+          <button id="startBtn" class="win-only" title="Start">⊞</button>
+          <div id="taskStrip" class="tasks" role="tablist" aria-label="Open windows"></div>
+          <button id="settingsBtn" title="Settings">⚙️</button>
+        </div>
+      </nav>
+  
+      <!-- Layer for windows and menus -->
+      <div id="windowLayer" aria-live="polite"></div>
+      <div id="contextMenu" class="context hidden" role="menu" aria-hidden="true"></div>
+      <div id="palette" class="palette hidden" role="dialog" aria-modal="true" aria-label="Command palette">
+        <input id="paletteInput" placeholder="Type to search apps…" aria-label="Search apps" />
+        <div id="paletteList"></div>
+      </div>
+  
+      <!-- Toasts -->
+      <div id="toasts" class="toasts" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  
+    <script src="assets/js/main.js"></script>
+  </body>
+  </html>
+  e.css" />
   <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
 </head>
 <body>

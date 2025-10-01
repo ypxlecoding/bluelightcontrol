@@ -1,29 +1,5 @@
 [
-  {
-    "id": "classic",
-    "name": "Classic",
-    "vars": {
-      "tileRadius": "10px",
-      "windowRadius": "8px",
-      "accent": ""
-    }
-  },
-  {
-    "id": "neon",
-    "name": "Neon",
-    "vars": {
-      "tileRadius": "14px",
-      "windowRadius": "14px",
-      "accent": "#7c3aed"
-    }
-  },
-  {
-    "id": "flat",
-    "name": "Flat",
-    "vars": {
-      "tileRadius": "6px",
-      "windowRadius": "6px",
-      "accent": "#10b981"
-    }
-  }
+  { "id": "classic", "name": "Classic", "vars": { "tileRadius": "10px", "windowRadius": "8px", "accent": "" } },
+  { "id": "neon",    "name": "Neon",    "vars": { "tileRadius": "14px", "windowRadius": "14px", "accent": "#7c3aed" } },
+  { "id": "flat",    "name": "Flat",    "vars": { "tileRadius": "6px",  "windowRadius": "6px",  "accent": "#10b981" } }
 ]
