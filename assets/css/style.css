@@ -75,3 +75,22 @@
   .row.gap{ display:flex; flex-wrap:wrap; gap:8px }
   .editor{ width:100%; min-height:340px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; background:#0a0f17; color:var(--fg); border:1px solid #2a3142; border-radius:8px; padding:10px }
   .mono{ background:#0a0f17; border:1px solid #2a3142; border-radius:8px; padding:10px; overflow:auto }
+
+  /* --- visual polish additions --- */
+.glass{ background: rgba(16,19,26,0.65); backdrop-filter: blur(16px) saturate(140%); border:1px solid rgba(255,255,255,0.06); }
+.win-titlebar,.mac-titlebar{ background: linear-gradient(180deg, #0e1624, #0b1220); }
+.win-title{ font-weight:700; opacity:.95 }
+
+/* Dock (optional centered variant if you later switch) */
+.dock{ position:fixed; left:50%; transform:translateX(-50%); bottom:14px; background: rgba(15,18,24,0.45); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:6px 10px; box-shadow: 0 24px 80px rgba(0,0,0,.4); z-index:120; }
+.dock-inner{ display:flex; align-items:center; gap:8px }
+.dock-icons{ list-style:none; display:flex; gap:10px; margin:0 6px; padding:0 }
+.dock-item{ display:block }
+.dock-btn{ font-size:20px; line-height:1; padding:10px 12px; background:transparent; border:0; border-radius:12px; cursor:pointer }
+.dock-btn:hover{ background:rgba(255,255,255,0.08) }
+
+/* Clocks */
+.clock-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; padding:12px }
+.clock-card{ padding:12px; background:#0f1622; border:1px solid #283349; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.3); text-align:center }
+.clock-title{ margin:6px 0 10px; font-weight:700 }
+.clock-canvas{ width:200px; height:200px; display:block; margin:0 auto; }

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clocks</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body class="app">
+  <main class="clock-grid">
+    <section class="clock-card">
+      <h3 class="clock-title">Berlin</h3>
+      <canvas class="clock-canvas" width="200" height="200" data-tz="Europe/Berlin"></canvas>
+    </section>
+    <section class="clock-card">
+      <h3 class="clock-title">London</h3>
+      <canvas class="clock-canvas" width="200" height="200" data-tz="Europe/London"></canvas>
+    </section>
+    <section class="clock-card">
+      <h3 class="clock-title">New York</h3>
+      <canvas class="clock-canvas" width="200" height="200" data-tz="America/New_York"></canvas>
+    </section>
+    <section class="clock-card">
+      <h3 class="clock-title">Tokyo</h3>
+      <canvas class="clock-canvas" width="200" height="200" data-tz="Asia/Tokyo"></canvas>
+    </section>
+  </main>
+
+  <script>
+    const TAU = Math.PI * 2;
+
+    function drawClock(ctx, date){
+      const { width, height } = ctx.canvas;
+      const r = Math.min(width, height)/2 - 6;
+      const cx = width/2, cy = height/2;
+
+      ctx.clearRect(0,0,width,height);
+
+      // face
+      const grad = ctx.createRadialGradient(cx,cy, r*0.1, cx,cy, r);
+      grad.addColorStop(0, '#0f1622');
+      grad.addColorStop(1, '#0a0f17');
+      ctx.fillStyle = grad;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,TAU); ctx.fill();
+      ctx.strokeStyle = '#2b3447'; ctx.lineWidth = 2; ctx.stroke();
+
+      // ticks
+      ctx.save(); ctx.translate(cx,cy);
+      for(let i=0;i<60;i++){
+        ctx.rotate(TAU/60);
+        ctx.beginPath();
+        ctx.lineWidth = (i%5===0)?3:1;
+        ctx.strokeStyle = (i%5===0)?'#e6eaf0':'#7e8aa3';
+        ctx.moveTo(0,-r+10);
+        ctx.lineTo(0,-r+((i%5===0)?18:14));
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      const s = date.getSeconds() + date.getMilliseconds()/1000;
+      const m = date.getMinutes() + s/60;
+      const h = (date.getHours()%12) + m/60;
+
+      // hands
+      function hand(angle, len, lw, color){
+        ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle);
+        ctx.beginPath(); ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.strokeStyle = color;
+        ctx.moveTo(0, len*-0.12); ctx.lineTo(0, -len);
+        ctx.stroke(); ctx.restore();
+      }
+      hand(h * TAU/12, r*0.55, 5, '#e6eaf0');   // hour
+      hand(m * TAU/60, r*0.75, 4, '#c7d2e5');   // minute
+      hand(s * TAU/60, r*0.80, 2, '#3a86ff');   // second
+
+      // center cap
+      ctx.fillStyle = '#e6eaf0'; ctx.beginPath(); ctx.arc(cx,cy,3,0,TAU); ctx.fill();
+    }
+
+    function tick(canvas){
+      const tz = canvas.dataset.tz;
+      const now = new Date();
+
+      // build a Date showing the local time in the requested tz
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: tz, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
+      }).formatToParts(now).reduce((acc,p)=>{ acc[p.type]=p.value; return acc; },{});
+
+      const d = new Date(now);
+      d.setHours(parseInt(parts.hour,10));
+      d.setMinutes(parseInt(parts.minute,10));
+      d.setSeconds(parseInt(parts.second,10));
+      d.setMilliseconds(now.getMilliseconds());
+
+      drawClock(canvas.getContext('2d'), d);
+      requestAnimationFrame(()=>tick(canvas));
+    }
+
+    document.querySelectorAll('.clock-canvas').forEach(c=> tick(c));
+  </script>
+</body>
+</html>
