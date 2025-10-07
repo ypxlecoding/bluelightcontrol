@@ -1,0 +1,2 @@
+<?= '<?php' ?>
+// returns apps.json
