@@ -1,1 +1,32 @@
-<!doctype html><title>Notes</title><textarea style='width:100%;height:100%'></textarea>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Notes</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { margin:0; font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0f14; color:#e8eef7; }
+    .wrap { padding:12px; }
+    textarea { width:100%; height:60vh; background:#111923; color:#e8eef7; border:1px solid #2a3441; border-radius:8px; padding:10px; }
+    .row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+    button { padding:8px 12px; border:0; border-radius:8px; background:#4ea1ff; color:#fff; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <button onclick="save()">Save to browser</button>
+      <button onclick="load()">Load</button>
+      <span id="msg" style="color:#9aa6b2;margin-left:8px;"></span>
+    </div>
+    <textarea id="t" placeholder="These notes are saved in your browser (localStorage)"></textarea>
+  </div>
+  <script>
+    const TKEY='wd_notes';
+    function save(){ localStorage.setItem(TKEY, document.getElementById('t').value); ping('Saved'); }
+    function load(){ document.getElementById('t').value = localStorage.getItem(TKEY)||''; ping('Loaded'); }
+    function ping(s){ const m=document.getElementById('msg'); m.textContent=s; setTimeout(()=>m.textContent='',1200); }
+    load();
+  </script>
+</body>
+</html>

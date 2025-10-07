@@ -1,80 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="windows">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Desktop — LAD / BLC / Planspiel</title>
-<link rel="stylesheet" href="./assets/css/style.css?v=1">
-<link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>WebDesktop — Static (GitHub Pages)</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-<!-- Login Screen -->
-<div id="loginScreen" class="screen">
-<div class="login-card">
-<div class="login-avatar">👤</div>
-<h1>Welcome</h1>
-<form id="loginForm" autocomplete="off">
-<label>
-<span>Username</span>
-<input id="loginUser" name="user" required />
-</label>
-<label>
-<span>Password</span>
-<input id="loginPass" name="pass" type="password" required />
-</label>
-<button id="loginBtn" type="submit">Sign in</button>
-<p id="loginErr" class="error" aria-live="polite"></p>
-<details class="hint">
-<summary>Trouble signing in?</summary>
-<p>Serve this folder over HTTP/HTTPS (not <code>file://</code>). Example: <code>python3 -m http.server</code></p>
-</details>
-</form>
-</div>
-</div>
+  <header class="topbar">
+    <div class="brand">WebDesktop</div>
+    <div class="spacer"></div>
+    <div class="clock" id="clock"></div>
+  </header>
 
+  <nav class="dock" id="dock">
+    <!-- App buttons are rendered here -->
+    <div class="dock-sep"></div>
+    <div class="theme-switch">
+      <select id="themeSelect"></select>
+    </div>
+  </nav>
 
-<!-- Desktop -->
-<div id="desktop" class="screen hidden" aria-label="Desktop" tabindex="-1">
-<header id="topbar" class="bar top" role="menubar">
-<div class="left">
-<button id="appleMenu" class="ghost mac-only" aria-haspopup="true"></button>
-<strong id="menuTitle" class="mac-only">Finder</strong>
-<div id="menuActions" class="mac-only">
-<a class="ghost" href="about.html" data-action="about">About</a>
-<a class="ghost" href="settings.html" data-action="settings">Settings</a>
-</div>
-</div>
-<div class="right">
-<span id="clock" aria-live="polite"></span>
-<button id="logoutBtn" class="ghost">Logout</button>
-</div>
-</header>
+  <main id="desktop" class="desktop" aria-live="polite"></main>
+  <footer class="taskbar" id="taskbar"></footer>
 
-
-<main id="desktopArea" class="desktop-grid" role="grid" aria-label="Desktop icons"></main>
-
-
-<nav id="dock" class="bar bottom" role="navigation" aria-label="Taskbar">
-<div class="dock-inner">
-<button id="startBtn" class="win-only" title="Start">⊞</button>
-<div id="taskStrip" class="tasks" role="tablist" aria-label="Open windows"></div>
-<button id="settingsBtn" title="Settings">⚙️</button>
-</div>
-</nav>
-
-
-<div id="windowLayer" aria-live="polite"></div>
-<div id="contextMenu" class="context hidden" role="menu" aria-hidden="true"></div>
-<div id="palette" class="palette hidden" role="dialog" aria-modal="true" aria-label="Command palette">
-<input id="paletteInput" placeholder="Type to search apps…" aria-label="Search apps" />
-<div id="paletteList"></div>
-</div>
-<div id="toasts" class="toasts" aria-live="polite" aria-atomic="true"></div>
-</div>
-
-
-<script type="module" src="assets/js/core.js"></script>
-<script type="module" src="assets/js/desktop.js"></script>
-
+  <script>
+    // Static build config (no backend). Data is loaded from JSON files.
+    window.__WD__ = {
+      appsJson: 'data/apps.json',
+      themesJson: 'data/themes.json',
+      storageKey: 'wd_state_v1'
+    };
+  </script>
+  <script src="assets/desktop.js"></script>
 </body>
 </html>

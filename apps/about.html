@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>About</title>
-<link rel="stylesheet" href="assets/css/style.css" />
+  <meta charset="utf-8" />
+  <title>About</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { margin:0; padding:16px; font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#fff; color:#0b0f14; }
+    h1 { margin:0 0 8px; }
+    p { margin:0 0 8px; }
+    code { background:#f3f5f8; padding:2px 6px; border-radius:6px; }
+  </style>
 </head>
-<body class="page">
-<header class="pagebar">
-<h1>About this Desktop</h1>
-<nav><a class="ghost" href="index.html">⬅ Back</a></nav>
-</header>
-<main class="page-content">
-<section class="card">
-<p>Multi-page web desktop with Windows/Mac themes, wallpapers, command palette, draggable windows, and configurable apps from <code>apps.json</code>.</p>
-<ul>
-<li>LAD → <code>http://lad.bluelightcontrol.de</code></li>
-<li>BLC → <code>http://play.bluelightcontrol.de</code></li>
-<li>Planspiel → <code>http://planspiel.bluelightcontrol.de</code></li>
-</ul>
-<p>Internal apps are stored as standalone HTML files in <code>/apps</code>.</p>
-</section>
-</main>
+<body>
+  <h1>WebDesktop — Static</h1>
+  <p>Pure HTML/CSS/JS version for GitHub Pages. Add or edit apps in <code>data/apps.json</code>.</p>
+  <p>State is stored locally in your browser via <code>localStorage</code> (no server required).</p>
 </body>
 </html>

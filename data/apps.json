@@ -1,0 +1,29 @@
+{
+  "apps": [
+    {
+      "id": "notes",
+      "name": "Notes",
+      "type": "iframe",
+      "url": "apps/notes.html",
+      "icon": "https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/notes.svg",
+      "width": 640,
+      "height": 460
+    },
+    {
+      "id": "about",
+      "name": "About",
+      "type": "iframe",
+      "url": "apps/about.html",
+      "icon": "https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/info-circle.svg",
+      "width": 520,
+      "height": 360
+    },
+    {
+      "id": "inline-demo",
+      "name": "Inline",
+      "type": "inline",
+      "html": "<h2>Hello 👋</h2><p>This is an inline app rendered from <code>data/apps.json</code>.</p><p>Edit <code>data/apps.json</code> to add your own.</p>",
+      "icon": "https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/terminal-2.svg"
+    }
+  ]
+}
