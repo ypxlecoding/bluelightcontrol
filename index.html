@@ -2,10 +2,111 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>WebDesktop — Static (GitHub Pages)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>WebDesktop — Static (Single-File)</title>
   <meta name="theme-color" content="#0b0f14" />
-  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --fg: #e8eef7;
+      --muted: #9aa6b2;
+      --panel: #141a22;
+      --panel-2: #1b242f;
+      --accent: #4ea1ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 10px;
+      --win-title: #cfd8e3;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --fg: #0b0f14;
+      --muted: #5b6470;
+      --panel: #ffffff;
+      --panel-2: #eef2f7;
+      --accent: #005dff;
+      --shadow: 0 8px 22px rgba(0,0,0,.12);
+      --win-title: #0b0f14;
+    }
+    * { box-sizing: border-box; }
+    html,body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 800px at 70% -10%, #1e2631 0%, var(--bg) 60%) fixed;
+      color: var(--fg);
+      font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; height: 40px;
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 12px; background: rgba(0,0,0,.25); backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .brand { font-weight: 700; letter-spacing: .2px; }
+    .spacer { flex: 1; }
+    .clock { font-variant-numeric: tabular-nums; color: var(--muted); }
+    .dock {
+      position: fixed; left: 12px; top: 48px; width: 220px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      background: rgba(0,0,0,.18); backdrop-filter: blur(6px);
+      padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,.06);
+    }
+    .dock-item {
+      display: grid; place-items: center;
+      width: 64px; aspect-ratio: 1/1; border: 1px solid #2a3441;
+      border-radius: 12px; background: var(--panel);
+      box-shadow: var(--shadow); cursor: pointer; position: relative;
+    }
+    .dock-item img { width: 28px; height: 28px; object-fit: contain; }
+    .dock-item span {
+      position: absolute; bottom: -18px; font-size: 11px; color: var(--muted);
+    }
+    .dock-sep { width: 100%; height: 1px; background: rgba(255,255,255,.08); margin: 6px 0; }
+    .theme-switch select {
+      width: 100%; padding: 8px; background: var(--panel-2); color: var(--fg);
+      border-radius: 8px; border: 1px solid #2a3441;
+    }
+    .desktop { position: fixed; inset: 48px 0 36px 0; }
+    .window {
+      position: absolute; min-width: 320px; min-height: 200px;
+      background: var(--panel); border: 1px solid #2a3441; border-radius: 12px;
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .win-titlebar {
+      height: 36px; display: flex; align-items: center; gap: 8px;
+      padding: 0 10px; background: rgba(255,255,255,.04);
+      cursor: move; user-select: none; border-bottom: 1px solid rgba(255,255,255,.06);
+      color: var(--win-title);
+    }
+    .win-controls { margin-left: auto; display: flex; gap: 6px; }
+    .win-btn {
+      width: 22px; height: 22px; border-radius: 6px; border: 1px solid #2a3441;
+      background: var(--panel-2); display: grid; place-items: center; cursor: pointer;
+    }
+    .win-content { height: calc(100% - 36px); background: var(--panel); }
+    .win-content iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+    .win-content .pad { padding: 12px; color: var(--fg); }
+    .taskbar {
+      position: fixed; left: 0; right: 0; bottom: 0; height: 36px;
+      display: flex; gap: 6px; align-items: center; padding: 0 8px;
+      background: rgba(0,0,0,.25); backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .task {
+      height: 26px; padding: 0 10px; border-radius: 8px;
+      background: var(--panel); border: 1px solid #2a3441; color: var(--fg);
+      display: grid; place-items: center; cursor: pointer;
+    }
+    .window::after {
+      content: ""; position: absolute; right: 0; bottom: 0; width: 14px; height: 14px;
+      background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.15) 50%);
+      cursor: se-resize;
+    }
+    .hidden { display: none !important; }
+    @media (max-width: 900px) {
+      .dock { position: fixed; left: 0; right: 0; top: 42px; width: auto; justify-content: center; }
+      .desktop { inset: 88px 0 36px 0; }
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -15,7 +116,7 @@
   </header>
 
   <nav class="dock" id="dock">
-    <!-- App buttons are rendered here -->
+    <!-- App buttons render here -->
     <div class="dock-sep"></div>
     <div class="theme-switch">
       <select id="themeSelect"></select>
@@ -25,14 +126,299 @@
   <main id="desktop" class="desktop" aria-live="polite"></main>
   <footer class="taskbar" id="taskbar"></footer>
 
+  <!-- Inline config + defaults (work even if data/ is missing) -->
   <script>
-    // Static build config (no backend). Data is loaded from JSON files.
     window.__WD__ = {
+      // If you later add external files, keep these paths:
       appsJson: 'data/apps.json',
       themesJson: 'data/themes.json',
-      storageKey: 'wd_state_v1'
+      storageKey: 'wd_state_v1',
+      defaults: {
+        themes: { default: 'dark', list: ['dark','light'] },
+        apps: {
+          apps: [
+            {
+              id: 'notes',
+              name: 'Notes',
+              type: 'iframe',
+              url: 'apps/notes.html',
+              icon: 'https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/notes.svg',
+              width: 640, height: 460
+            },
+            {
+              id: 'about',
+              name: 'About',
+              type: 'inline',
+              html: '<h2>WebDesktop — Static</h2><p>This is the single-file build using built-in defaults.</p><p>Edit <code>window.__WD__.defaults.apps</code> or add <code>data/apps.json</code>.</p>',
+              icon: 'https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/info-circle.svg',
+              width: 520, height: 360
+            },
+            {
+              id: 'inline-demo',
+              name: 'Inline',
+              type: 'inline',
+              html: '<h3>Inline app</h3><p>Rendered from JSON in <code>index.html</code>.</p>',
+              icon: 'https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/terminal-2.svg'
+            }
+          ]
+        }
+      }
     };
   </script>
-  <script src="assets/desktop.js"></script>
+
+  <!-- Desktop logic with resilient fetch + fallbacks -->
+  <script>
+    (function () {
+      const qs = (s, el=document) => el.querySelector(s);
+      const qsa = (s, el=document) => Array.from(el.querySelectorAll(s));
+      const desktop = qs('#desktop');
+      const taskbar = qs('#taskbar');
+      const dock = qs('#dock');
+      const clock = qs('#clock');
+      const themeSelect = qs('#themeSelect');
+
+      const SKEY = (window.__WD__ && window.__WD__.storageKey) || 'wd_state';
+      const APPS_URL = window.__WD__?.appsJson || 'data/apps.json';
+      const THEMES_URL = window.__WD__?.themesJson || 'data/themes.json';
+      const DEFAULT_THEMES = window.__WD__?.defaults?.themes || { default: 'dark', list: ['dark','light'] };
+      const DEFAULT_APPS = window.__WD__?.defaults?.apps || { apps: [] };
+
+      // Error banner
+      function banner(msg) {
+        let b = qs('#wd-banner');
+        if (!b) {
+          b = document.createElement('div');
+          b.id = 'wd-banner';
+          b.style.cssText = 'position:fixed;left:0;right:0;top:40px;background:#b00020;color:#fff;padding:8px 12px;font:13px/1.4 system-ui;z-index:9999';
+          document.body.appendChild(b);
+        }
+        b.innerHTML = msg + ' <span style="opacity:.8">Check DevTools → Console/Network.</span>';
+      }
+
+      // Clock
+      function tickClock() {
+        const now = new Date();
+        if (clock) clock.textContent = now.toLocaleString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+      }
+      setInterval(tickClock, 1000); tickClock();
+
+      // Resilient fetch
+      async function safeJson(url, fallback, label) {
+        try {
+          const r = await fetch(url, { cache: 'no-store' });
+          if (!r.ok) throw new Error(`${label} HTTP ${r.status}`);
+          return await r.json();
+        } catch (e) {
+          console.warn(`Fallback to defaults for ${label}:`, e);
+          banner(`Could not load <code>${url}</code>. Using built-in defaults.`);
+          return fallback;
+        }
+      }
+
+      // Boot
+      (async function boot() {
+        const themes = await safeJson(THEMES_URL, DEFAULT_THEMES, 'themes');
+        const apps   = await safeJson(APPS_URL, DEFAULT_APPS, 'apps');
+
+        // Themes
+        const list = themes.list || ['dark','light'];
+        const def  = themes.default || 'dark';
+        if (themeSelect) {
+          themeSelect.innerHTML = list.map(t=>`<option value="${t}">${t[0].toUpperCase()+t.slice(1)}</option>`).join('');
+          const saved = loadState().theme || def;
+          setTheme(saved, false);
+          themeSelect.value = saved;
+          themeSelect.addEventListener('change', e => setTheme(e.target.value));
+        } else {
+          setTheme(loadState().theme || def, false);
+        }
+
+        // Apps → dock
+        (apps.apps || []).forEach(app => {
+          const btn = document.createElement('button');
+          btn.className = 'dock-item';
+          btn.dataset.appId = app.id;
+          btn.title = app.name;
+          btn.innerHTML = `${app.icon ? `<img src="${app.icon}" alt="">` : '■'}<span>${app.name}</span>`;
+          btn.addEventListener('click', () => openApp(app));
+          // Insert before separator so theme switch stays at bottom
+          const sep = dock.querySelector('.dock-sep');
+          dock.insertBefore(btn, sep);
+        });
+
+        restoreWindows(apps.apps || []);
+      })();
+
+      // Theme + persistence
+      function setTheme(name, persist=true) {
+        document.documentElement.setAttribute('data-theme', name);
+        if (persist) saveState({ theme: name });
+      }
+      function loadState() {
+        try { return JSON.parse(localStorage.getItem(SKEY) || '{}'); } catch(e) { return {}; }
+      }
+      function saveState(partial) {
+        const cur = loadState();
+        const next = Object.assign({}, cur, partial);
+        localStorage.setItem(SKEY, JSON.stringify(next));
+      }
+
+      // Window system
+      const state = { z: 10, windows: {}, tasks: {} };
+
+      function openApp(app) {
+        const id = app.id;
+        if (state.windows[id]) { focusWindow(state.windows[id].el); return; }
+
+        const win = document.createElement('section');
+        win.className = 'window';
+        win.style.left = (40 + Object.keys(state.windows).length * 24) + 'px';
+        win.style.top = (80 + Object.keys(state.windows).length * 24) + 'px';
+        win.style.width = (app.width || 560) + 'px';
+        win.style.height = (app.height || 400) + 'px';
+        win.dataset.appId = id;
+
+        const bar = document.createElement('div');
+        bar.className = 'win-titlebar';
+        bar.innerHTML = `<strong>${app.name}</strong><div class="win-controls">
+          <button class="win-btn" data-act="min" title="Minimize">–</button>
+          <button class="win-btn" data-act="max" title="Maximize">□</button>
+          <button class="win-btn" data-act="close" title="Close">×</button>
+        </div>`;
+        win.appendChild(bar);
+
+        const content = document.createElement('div');
+        content.className = 'win-content';
+        if (app.type === 'iframe') {
+          const f = document.createElement('iframe');
+          f.src = app.url;
+          content.appendChild(f);
+        } else {
+          const inner = document.createElement('div');
+          inner.className = 'pad';
+          inner.innerHTML = app.html || '<em>Empty app</em>';
+          content.appendChild(inner);
+        }
+        win.appendChild(content);
+
+        // Dragging
+        let drag = null;
+        bar.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.win-controls')) return;
+          drag = {dx: e.clientX - win.offsetLeft, dy: e.clientY - win.offsetTop};
+          document.addEventListener('mousemove', onDrag);
+          document.addEventListener('mouseup', stopDrag);
+        });
+        function onDrag(e) {
+          if (!drag) return;
+          win.style.left = Math.max(0, e.clientX - drag.dx) + 'px';
+          win.style.top  = Math.max(42, e.clientY - drag.dy) + 'px';
+        }
+        function stopDrag() {
+          document.removeEventListener('mousemove', onDrag);
+          document.removeEventListener('mouseup', stopDrag);
+          persistPositions();
+        }
+
+        // Resize (SE)
+        let rs = null;
+        win.addEventListener('mousedown', (e) => {
+          const rect = win.getBoundingClientRect();
+          if (e.clientX > rect.right - 16 && e.clientY > rect.bottom - 16) {
+            rs = {w: rect.width, h: rect.height, x: e.clientX, y: e.clientY};
+            document.addEventListener('mousemove', onResize);
+            document.addEventListener('mouseup', stopResize);
+          }
+        });
+        function onResize(e) {
+          if (!rs) return;
+          const nw = Math.max(320, rs.w + (e.clientX - rs.x));
+          const nh = Math.max(200, rs.h + (e.clientY - rs.y));
+          win.style.width = nw + 'px';
+          win.style.height = nh + 'px';
+        }
+        function stopResize() {
+          document.removeEventListener('mousemove', onResize);
+          document.removeEventListener('mouseup', stopResize);
+          persistPositions();
+        }
+
+        // Controls
+        bar.addEventListener('click', (e) => {
+          const act = e.target.closest('.win-btn')?.dataset?.act;
+          if (!act) return;
+          if (act === 'close') closeWindow(id);
+          if (act === 'min') minimizeWindow(id);
+          if (act === 'max') toggleMaximize(id);
+        });
+
+        desktop.appendChild(win);
+        focusWindow(win);
+
+        const task = document.createElement('button');
+        task.className = 'task';
+        task.textContent = app.name;
+        task.addEventListener('click', () => {
+          if (win.classList.contains('hidden')) {
+            win.classList.remove('hidden');
+            focusWindow(win);
+          } else {
+            minimizeWindow(id);
+          }
+        });
+        taskbar.appendChild(task);
+
+        state.windows[id] = { app, el: win, task };
+        persistPositions();
+      }
+
+      function focusWindow(win) { state.z += 1; win.style.zIndex = state.z; }
+      function closeWindow(id) { const w = state.windows[id]; if (!w) return; w.el.remove(); w.task.remove(); delete state.windows[id]; persistPositions(); }
+      function minimizeWindow(id) { const w = state.windows[id]; if (!w) return; w.el.classList.toggle('hidden'); }
+      function toggleMaximize(id) {
+        const w = state.windows[id]; if (!w) return;
+        w.el.classList.toggle('max');
+        if (w.el.classList.contains('max')) {
+          w.el.style.left = '0px'; w.el.style.top = '42px';
+          w.el.style.width = '100%'; w.el.style.height = 'calc(100% - 42px - 36px)';
+        } else {
+          w.el.style.width = (w.app.width || 560) + 'px';
+          w.el.style.height = (w.app.height || 400) + 'px';
+        }
+        persistPositions();
+      }
+
+      function persistPositions() {
+        const winState = {};
+        Object.entries(state.windows).forEach(([id, w]) => {
+          winState[id] = {
+            x: w.el.style.left, y: w.el.style.top,
+            w: w.el.style.width, h: w.el.style.height,
+            hidden: w.el.classList.contains('hidden') || false
+          };
+        });
+        saveState({ windows: winState, theme: document.documentElement.getAttribute('data-theme') });
+      }
+      function restoreWindows(appList) {
+        const st = loadState();
+        const winState = st.windows || {};
+        Object.keys(winState).forEach(id => {
+          const meta = appList.find(a => a.id === id);
+          if (!meta) return;
+          openApp(meta);
+          const w = state.windows[id]; if (!w) return;
+          const sW = winState[id];
+          w.el.style.left = sW.x || w.el.style.left;
+          w.el.style.top = sW.y || w.el.style.top;
+          w.el.style.width = sW.w || w.el.style.width;
+          w.el.style.height = sW.h || w.el.style.height;
+          if (sW.hidden) w.el.classList.add('hidden'); else w.el.classList.remove('hidden');
+        });
+      }
+    })();
+  </script>
+
+  <!-- Optional: in case you do *not* add apps/notes.html, provide a minimal inline notes app as a data URL -->
+  <!-- Not required, the default Inline app already works. If you want Notes as iframe, add apps/notes.html. -->
 </body>
 </html>
